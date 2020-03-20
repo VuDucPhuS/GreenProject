@@ -37,17 +37,22 @@ public class BookStoreApplication {
 		return args -> {
 
 			// create instructor
-			Instructor instructor = new Instructor("Phu", "Vu", "vd.phu@gmail.com"); // create instructor detail
+			Instructor instructor = new Instructor("Phu", "Vu", "vd.phu@gmail.com"); 
+			// create instructor detail
 			InstructorDetail instructorDetail = new InstructorDetail("green.com", "Java");
 
+			// Mapping (OneToOne) - Between Instructor and Instructor Detail
 			// associate the objects - Instructor
-			instructorDetail.setInstructor(instructor); // save instructor detail
+			instructorDetail.setInstructor(instructor); 
+			// save instructor detail
 			instructorDetailRepository.save(instructorDetail);
 
 			// associate the objects - InstructorDetail
-			instructor.setInstructorDetail(instructorDetail); // save the instructor
+			instructor.setInstructorDetail(instructorDetail); 
+			// save the instructor
 			instructorRepository.save(instructor);
 
+			// Mapping (OneToMany) - Between Instructor and Courses
 			Optional<Instructor> result = instructorRepository.findById((long) 1);
 			if (result.isPresent()) {
 				Instructor tempInstructor = result.get();
