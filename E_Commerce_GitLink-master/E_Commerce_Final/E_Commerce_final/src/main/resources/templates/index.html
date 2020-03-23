@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/css/ionicons.min.css">
+
+    <meta charset="UTF-8">
+    <title>E-Commerce</title>
+    <!--
+    <link rel="shortcut icon" type="image/png" href="img/HeaderImg/Onepiece_logo.jpg">
+    -->
+</head>
+<body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr th:each="product: ${products}">
+                        <td th:text="${product.brand.getName()}"></td>
+                        <td th:text="${product.getProduct_name()}"></td>
+                    <!--<td th:object="${product.getId()}}"></td>-->
+                        <!--
+                        <td th:text="${product.getModel_year()}}"></td>
+                        -->
+                    </tr>
+            </tbody>
+        </table>
+        <button>
+            <a href="/product/add">
+                Add
+            </a>
+        </button>
+<!--
+        <header style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/TrangchuImg/Nike1.jpg');">
+            <div class="header-contain">
+                <div class="container">
+                    <img src="img/HeaderImg/Onepiece_logo.gif" class="logo">
+                    <div class="Menu-tab" id="menu_header">
+                        <div class="tab" id="tab1"> Product </div>
+                        <div class="tab" id="tab2"> Brands </div>
+                        <div class="tab" id="tab3"> Shop</div>
+                    </div>
+                    <div id="menu_header2">
+                        <img src="img/HeaderImg/menu-icon.png" class="logo2" id="header_menu_tab">
+                    </div>
+
+                </div>
+            </div>
+            <div class="sub_tab_1">
+                <div class="header_sub_contain">
+                    PRODUCT
+                </div>
+                <div class="contain_item_tab">
+
+                    <div>
+                        <div class="sub_contain">
+                            MEN
+                        </div>
+                        <div class="sub_contain">
+                            WOMAN
+                        </div>
+                        <div class="sub_contain">
+                            KID
+                        </div>
+                        <div class="sub_contain no_border">
+                            SPORT
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub_tab_2">
+                <div class="header_sub_contain">
+                    BRANDS
+                </div>
+                <div class="contain_item_tab">
+
+                    <div>
+                        <div class="sub_contain">
+                            ADIDAS
+                        </div>
+                        <div class="sub_contain">
+                            BALENCIAGA
+                        </div>
+                        <div class="sub_contain">
+                            CONVERSE
+                        </div>
+                        <div class="sub_contain">
+                            NEW BALANCE
+                        </div>
+                        <div class="sub_contain">
+                            NIKE
+                        </div>
+                        <div class="sub_contain no_border">
+                            VANS
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub_tab_3">
+                <div class="header_sub_contain">
+                    SHOP
+                </div>
+                <div class="contain_item_tab">
+
+                    <div>
+                        <div class="sub_contain">
+                            ABOUT US
+                        </div>
+                        <div class="sub_contain">
+                            CONTACT
+                        </div>
+
+                        <div class="sub_contain no_border">
+                            SIGN IN
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header_menu_query">
+                <div class="Header_menu_tab_query">
+                    <img src="img/HeaderImg/xbtn.png" class="x_btn_header_query" id="x_close_header_menu_query">
+                    <a href="#" class="">
+                        <img src="img/HeaderImg/Onepiece_logo.gif" class="logo_query">
+                    </a>
+                </div>
+                <div class="menu_tab_query" id="menu_main_1">
+                    <a href="#" class="menu_tab_query_text_box">
+                        PRODUCT
+                    </a>
+                </div>
+                <div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden1">
+                        <a href="#" class="menu_tab_query_text_box">
+                            MEN
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden1">
+                        <a href="#" class="menu_tab_query_text_box">
+                            WOMAN
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden1">
+                        <a href="#" class="menu_tab_query_text_box">
+                            KID
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden1">
+                        <a href="#" class="menu_tab_query_text_box">
+                            SPORT
+                        </a>
+                    </div>
+                </div>
+                <div class="menu_tab_query" id="menu_main_2">
+                    <a href="#" class="menu_tab_query_text_box">
+                        BRANDS
+                    </a>
+                </div>
+                <div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            ADIDAS
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            BALENCIAGA
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            CONVERSE
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            NEW BALANCE
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            NIKE
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden2">
+                        <a href="#" class="menu_tab_query_text_box">
+                            VANS
+                        </a>
+                    </div>
+                </div>
+                <div class="menu_tab_query" id="menu_main_3">
+                    <a href="#" class="menu_tab_query_text_box">
+                        SHOP
+                    </a>
+                </div>
+                <div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden3">
+                        <a href="#" class="menu_tab_query_text_box">
+                            NEW BALANCE
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden3">
+                        <a href="#" class="menu_tab_query_text_box">
+                            NIKE
+                        </a>
+                    </div>
+                    <div class="menu_tab_query sub_menu_tab_query tab_hidden3">
+                        <a href="#" class="menu_tab_query_text_box">
+                            VANS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="box_nike_1">
+                <div class="text_box">
+                    <div class="dp_block">
+                        <b> DT-Shop </b>
+                        <br> Bảo đảm uy tín - chất lượng, cùng bạn đồng hành trên mọi cuộc hành trình
+                    </div>
+
+                    <div class="btn_contain">
+                        <a class="gradient_btn btn_MuaNgay">
+                            Shopping Now
+
+                        </a>
+                        <a class="btn_xemthem" href="#">
+                            More Information
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <br>
+
+        <TrangChu>
+            <div class="box_contain">
+                <div class="Tieude_contain">
+                    TOP BRANDS
+                </div>
+                <div class="item_contain">
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/adidas_logo.jpg" class="brand_logo">
+                    </a>
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/balenciaga_logo.jpg" class="brand_logo">
+                    </a>
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/converse_logo.jpg" class="brand_logo">
+                    </a>
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/newbalance_logo.jpg" class="brand_logo">
+                    </a>
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/nike_logo.jpg" class="brand_logo">
+                    </a>
+                    <a class="grid_item" href="#">
+                        <img src="img/TrangchuImg/vans_logo.jpg" class="brand_logo">
+                    </a>
+                </div>
+
+            </div>
+            <br>
+            <div>
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+
+                    <ul class="carousel-indicators">
+                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel" data-slide-to="1"></li>
+                        <li data-target="#carousel" data-slide-to="2"></li>
+                    </ul>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="img/TrangchuImg/model3.jpg" class="carousel_img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/TrangchuImg/model1.jpg" class="carousel_img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/TrangchuImg/model.gif" class="carousel_img">
+                        </div>
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="box_contain">
+                <div class="Tieude_contain">
+                    BEST SELLER
+                </div>
+                <div class="contain_grid_item">
+                    <div class="item_grid">
+                        <a class="best_seller_contain">
+                            <img src="img/TrangchuImg/model4.jpg" class="item_img">
+                            <img class="best_seller_logo" src="img/TrangchuImg/bestseller.gif">
+                        </a>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="item_grid">
+                        <a class="best_seller_contain">
+                            <img src="img/TrangchuImg/giay5.jpg" class="item_img">
+                            <img class="best_seller_logo" src="img/TrangchuImg/bestseller.gif">
+                        </a>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class=" img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class=" img_tvgh btn_view">
+                            </a>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="item_grid">
+                        <a class="best_seller_contain">
+                            <img src="img/TrangchuImg/giay4.jpg" class="item_img">
+                            <img class="best_seller_logo" src="img/TrangchuImg/bestseller.gif">
+                        </a>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="item_grid">
+                        <a class="best_seller_contain">
+                            <img src="img/TrangchuImg/giay2.jpg" class="item_img">
+                            <img class="best_seller_logo" src="img/TrangchuImg/bestseller.gif">
+                        </a>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#" class="gradient_btn">
+                    Xem thêm
+                </a>
+
+            </div>
+
+            <br>
+            <div class="collection_contain">
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <img src="img/TrangchuImg/collection1.jpg" class="collection_img">
+                    </div>
+                    <div class="card__side card__side--back card__side--back1">
+                        <div class="clt_header">
+                            VANS OLD SKOOL
+                        </div>
+                        <ul class="text_clt">
+                            <li class="text_clt_review">
+                                Đẳng cấp, kinh điển của sự kinh điển – đây là những mỹ từ dành cho dòng giày siêu phẩm Vans Old Skool.
+                            </li>
+                            <li class="text_clt_review">
+                                Với những phối màu cổ điển dễ mang và phù hợp với mọi loại trang phục. Đôi giày này xuất hiện từ nơi này đến nơi kia, từ Việt Nam sang Trung Quốc
+                            </li>
+                            <li class="text_clt_review">
+                                Mẫu Vans Old Skool còn được dân tình ủng hộ bởi thiết kế unisex dành cho cả nam và nữ
+                            </li>
+                            <li class="text_clt_review text_clt_review_price">
+                                <i>
+                                    Only 299.99$
+                                </i>
+                            </li>
+                            <li class="text_clt_review">
+                                <a href="#" class="buy_now_btn">
+                                    Buy Now
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <img src="img/TrangchuImg/collection2.jpg" class="collection_img">
+                    </div>
+                    <div class="card__side card__side--back card__side--back2">
+                        <div class="clt_header">
+                            NIKE AIR FORCE 1
+                        </div>
+                        <ul class="text_clt">
+                            <li class="text_clt_review">
+                                Ngay sau khi tung ra thị trường, đôi giày AF1 này đã trở thành “quả trứng vàng” trên khắp thế giới, bán sạch không còn một đôi ngay từ ngày đầu tiên ra mắt.
+                            </li>
+                            <li class="text_clt_review">
+                                Tích hợp với công nghệ “air”. Dưới đế giày, một túi khí được đặt bên trong, giúp người dùng giảm chấn thương cho bàn chân khi tiếp xúc với mặt đất.
+                            </li>
+                            <li class="text_clt_review">
+                                Có hơn 2000 phiên bản phối màu khác nhau
+                            </li>
+                            <li class="text_clt_review text_clt_review_price">
+                                <i>
+                                    Only 250.99$
+                                </i>
+                            </li>
+                            <li class="text_clt_review">
+                                <a href="#" class="buy_now_btn">
+                                    Buy Now
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <img src="img/TrangchuImg/collection3.jpg" class="collection_img">
+                    </div>
+                    <div class="card__side card__side--back card__side--back3">
+                        <div class="clt_header">
+                            CONVERSE 1970S
+                        </div>
+                        <ul class="text_clt">
+                            <li class="text_clt_review">
+                                Converse 1970 là một thành viên trong đại gia đình Converse
+                            </li>
+                            <li class="text_clt_review">
+                                Luôn nằm trong top seller trong vòng 1 năm kể từ khi ra mắt
+                            </li>
+                            <li class="text_clt_review">
+                                Phong cách cổ điển, thu hút, độ bền gần như là vô đối so với các loại giày cùng phân khúc
+                            </li>
+                            <li class="text_clt_review text_clt_review_price">
+                                <i>
+                                    Only 144.99$
+                                </i>
+                            </li>
+                            <li class="text_clt_review">
+                                <a href="#" class="buy_now_btn">
+                                    Buy Now
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <img src="img/TrangchuImg/collection4.jpg" class="collection_img">
+                    </div>
+                    <div class="card__side card__side--back card__side--back4">
+                        <div class="clt_header">
+                            ADIDAS Yeezy Boost 350
+                        </div>
+                        <ul class="text_clt">
+                            <li class="text_clt_review">
+                                Ra mắt từ năm 2015, mẫu item này đã tạo nên cơn sốt không những đối với bản thân hãng mà còn là mục tiêu săn lùng của các tín đồ thời trang trên khắp thế giới.
+                            </li>
+                            <li class="text_clt_review">
+                                Yeezy Boost 350 được bán với một mức giá khá mềm chỉ với 200 USD (khoảng 4,5 triệu VNĐ)
+                            </li>
+                            <li class="text_clt_review">
+                                Thiết kế của dòng Yeezy 350 được coi là phá vỡ mọi khuôn khổ của một đôi giày sneaker khi khoác lên mình diện mạo mới lạ, bỏ qua thiết kế thân giày dáng “bánh mì” quen thuộc thường thấy của Adidas.
+                            </li>
+                            <li class="text_clt_review text_clt_review_price">
+                                <i>
+                                    Only 204.99$
+                                </i>
+                            </li>
+                            <li class="text_clt_review">
+                                <a href="#" class="buy_now_btn">
+                                    Buy Now
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <div class="box_contain">
+                <div class="Tieude_contain">
+                    NEW ARRIVALS
+                </div>
+
+                <div class="item_grid_contain">
+                    <div class="item_container">
+                        <a href="#">
+                            <img src="img/TrangchuImg/giay2.jpg">
+                        </a>
+                        <div class="text_box_item">
+                            Giày 1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                        <div class="price_box">
+                            <i>
+                                3 999 999 VNĐ
+                            </i>
+                        </div>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item_container">
+                        <a href="#">
+                            <img src="img/TrangchuImg/giay3.png">
+                        </a>
+                        <div class="text_box_item">
+                            Giày 2
+                        </div>
+                        <div class="price_box">
+                            <i>
+                                3 999 999 VNĐ
+                            </i>
+                        </div>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item_container">
+                        <a href="#">
+                            <img src="img/TrangchuImg/giay4.jpg">
+                        </a>
+                        <div class="text_box_item">
+                            Giày 3
+                        </div>
+                        <div class="price_box">
+                            <i>
+                                3 999 999 VNĐ
+                            </i>
+                        </div>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="item_container">
+                        <a href="#">
+                            <img src="img/TrangchuImg/giay5.jpg">
+                        </a>
+                        <div class="text_box_item">
+                            Giày 4
+                        </div>
+                        <div class="price_box">
+                            <i>
+                                3 999 999 VNĐ
+                            </i>
+                        </div>
+                        <div class="img-contain">
+                            <a>
+                                <img src="img/TrangchuImg/addtobag.gif" class="item_img img_tvgh btn_tvgh">
+                            </a>
+                            <a>
+                                <img src="img/TrangchuImg/views.png" class="item_img img_tvgh btn_view">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="gradient_btn">
+                    Xem thêm
+                </a>
+
+            </div>
+            <br>
+        </TrangChu>
+        <subFooter>
+            <div class="sub_container">
+                <h2 class="subb_header">
+                    SIGN IN TO RECEIVE A LOT OF COUPON
+                </h2>
+            </div>
+            <div class="row">
+                <form class="contact-form">
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="text" name="name" id="name" placeholder="Your name" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="email" name="email" id="email" placeholder="Your email" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="find-us">How did you find us?</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <select name="find-us" id="find-us">
+                                <option value="friends" selected="">Friends</option>
+                                <option value="search">Shopee</option>
+                                <option value="ad">Advertisement</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>Nofications?</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="checkbox" name="news" id="news" checked="">Yes, please
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>What do u think about us</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <textarea name="message" placeholder="Your message"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>&nbsp;</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="submit" value="Send it!">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </subFooter>
+        <br>
+
+        <footer>
+            <div class="row">
+                <div class="col span-1-of-2">
+                    <ul class="footer-nav">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">iOS App</a></li>
+                        <li><a href="#">Android App</a></li>
+                    </ul>
+                </div>
+                <div class="col span-1-of-2" id="icon_query1">
+                    <ul class="social-links">
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="mail"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-google"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" id="icon_query2">
+                <div class="col span-1-of-2">
+                    <ul class="social-links">
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="mail"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-google"></ion-icon>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    Copyright &amp; 2020 by DT-Shop. All rights reserved.
+                </p>
+            </div>
+
+        </footer>
+        -->
+        <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+        <script type="text/javascript" src="/js/index.js">
+        </script>
+</body>
+</html>

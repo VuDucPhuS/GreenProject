@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add-Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/add-product.css">
+</head>
+<body>
+<div class="body_contain">
+    <form class="box" method="POST" th:action="@{/product/add}">
+        <table>
+            <tbody>
+            <h1>Add New Product</h1>
+            <tr>
+                <td> <label name="product_name">Product Name: </label></td>
+                <td><input type="text" name="product_name" placeholder="Product Name"></td>
+            </tr>
+            <tr>
+                <td> <label>Year: </label></td>
+                <td><input type="number" name="model_year" placeholder="Model Year"></td>
+            </tr>
+            <tr>
+                <td> <label>Price: </label></td>
+                <td><input type="number" name="list_price" placeholder="Price"></td>
+            </tr>
+            <tr>
+                <td> <label>Brand: </label></td>
+                <td>
+                    <select name="Brand">
+                        <option  selected="" value="101">Adidas</option>
+                        <option  value="102">Balenciaga</option>
+                        <option  value="103">Converse</option>
+                        <option  value="104">NewBalance</option>
+                        <option  value="105">Nike</option>
+                        <option  value="106">Vans</option>
+                        <option  value="107">Others</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td> <label>Color: </label></td>
+                <td>
+                    <select name="Color">
+                        <option  selected="" value="108">White</option>
+                        <option  value="109">Black</option>
+                        <option  value="110">Black and White</option>
+                        <option  value="111">Blue</option>
+                        <option  value="112">Galaxy</option>
+                        <option  value="113">Purple</option>
+                        <option  value="114">Red</option>
+                        <option  value="115">Yellow</option>
+                        <option  value="116">Green</option>
+                        <option  value="117">Others</option>
+                    </select>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="neon_btn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" placeholder="Add Product" value="Add Product">
+        </div>
+    </form>
+</div>
+<!--
+<div>
+<form th:action="@{/product/add}" method="post">
+    <div>
+        <label for="product_name">Product Name</label>
+        <input type="text" name="product_name" class="" id="email" placeholder="Name">
+
+     product_name
+    <input type="text" th:field="*{product_name}"  name="product_name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('product_name')}" th:errors="*{product_name}"></span>
+
+    </div>
+    <div>
+        <div>
+            <input type="submit" value="Add Product">
+        </div>
+    </div>
+</form>
+</div>
+-->
+</body>
+</html>
