@@ -1,4 +1,4 @@
-package com.bookstore.entities;
+package com.university.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ public class InstructorDetail {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private long id;
 	
 	@Column(name="youtube_channel")
 	private String youtubeChannel;
@@ -36,9 +36,9 @@ public class InstructorDetail {
 	@Column(name="hobby")
 	private String hobby;
 	
-	// add new field for instructor (also add getter/setters)
+	// add new field for instructor (also add getter/setter)
 	// add @OneToOne annotation
-	@OneToOne(mappedBy = "instructorDetail", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@OneToOne(mappedBy="instructorDetail", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Instructor instructor;
 	
 	public Instructor getInstructor() {
@@ -58,11 +58,11 @@ public class InstructorDetail {
 		this.hobby = hobby;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
