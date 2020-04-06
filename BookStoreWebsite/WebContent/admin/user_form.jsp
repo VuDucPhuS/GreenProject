@@ -6,12 +6,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>TechBooks Store Administration</title>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 
 	<div align="center">
-		<h2>
+		<h2 class="pageheading">
 			<c:if test="${user != null}">
 				Edit User
 			</c:if>
@@ -24,12 +25,13 @@
 	<div align="center">
 		<c:if test="${user != null}">
 			<form action="update_user" method="post" onsubmit="return valiadateFormInput()">
+			<input type="hidden" name="userId" value="${user.userId}">
 		</c:if>
 		<c:if test="${user == null}">
 			<form action="create_user" method="post" onsubmit="return valiadateFormInput()">
 		</c:if>
 		
-		<table>
+		<table class="form">
 			<tr>
 				<td align="right">Email:</td>
 				<td align="left"><input type="text" id="email" name="email" size="20" value="${user.email}"></td>
@@ -78,6 +80,7 @@
 			fieldPassword.focus();
 			return false;
 		}
+		return true;
 	}
 </script>
 </html>

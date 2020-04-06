@@ -16,18 +16,17 @@ import com.bookstore.entity.Users;
 
 public class UserServices {
 	
-	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 	private UserDAO userDAO;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
-	public UserServices(HttpServletRequest request, HttpServletResponse response) {
+	public UserServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
 		
+		this.entityManager = entityManager;
 		this.request = request;
 		this.response = response;
-		entityManagerFactory = Persistence.createEntityManagerFactory("BookStoreWebsite");
-		entityManager = entityManagerFactory.createEntityManager();
+		
 		userDAO = new UserDAO(entityManager);
 		
 	}
@@ -81,12 +80,73 @@ public class UserServices {
 		int userId = Integer.parseInt(request.getParameter("id"));
 		Users user = userDAO.get(userId);
 		
-		String editPage = "user_form.jsp";
-		request.setAttribute("user", user);
-		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
-		requestDispatcher.forward(request, response);
+		if(user == null) {
+			String destPage = "message.jsp";
+			String errorMessage = "Could not find user with id " + userId;
+			request.setAttribute("message", errorMessage);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
+			requestDispatcher.forward(request, response);
+		} else {
+			String editPage = "user_form.jsp";
+			request.setAttribute("user", user);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
+			requestDispatcher.forward(request, response);
+		}
 		
 	}
+
+	
+	public void updateUser() throws ServletException, IOException {
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		String email = request.getParameter("email");
+		String fullName = request.getParameter("fullname");
+		String password = request.getParameter("password");
+		
+		Users userById = userDAO.get(userId);
+		Users userByEmail = userDAO.findByEmail(email);
+		
+		if(userByEmail != null && userByEmail.getUserId() != userById.getUserId()) {
+			//find the duplicated user when update
+			String message = "Could not update user. User with email " + email + " already exists";
+			request.setAttribute("message", message);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		} else {
+			//update user
+			Users user = new Users(userId, email, fullName, password);
+			userDAO.update(user);
+			
+			String message = "User has been updated successfully";
+			listUser(message);
+		}
+	}
+
+	public void deleteUser() throws ServletException, IOException {
+		
+		int userId = Integer.parseInt(request.getParameter("id"));
+		Users user = userDAO.get(userId);
+		String message = "User has been deleted sucessfully";
+		
+		if(user == null) {
+			String errorMessage = "Could not find user with ID: " + userId + " , or it might have been deleted by another admin";
+			request.setAttribute("message", errorMessage);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+			
+		} else {
+			if (userId == 1) {
+				String errorMessage = "The default admin user account cannot be deleted";
+				request.setAttribute("message", errorMessage);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+				requestDispatcher.forward(request, response);
+			} else {
+				userDAO.delete(userId);
+				listUser(message);
+			}
+		}
+	}
+	 
+	 
 	
 }
