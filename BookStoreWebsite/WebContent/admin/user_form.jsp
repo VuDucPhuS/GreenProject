@@ -4,9 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>TechBooks Store Administration</title>
-<link rel="stylesheet" href="../css/style.css">
+	<meta charset="ISO-8859-1">
+	<title>TechBooks Store Administration</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -24,11 +26,11 @@
 	
 	<div align="center">
 		<c:if test="${user != null}">
-			<form action="update_user" method="post" onsubmit="return valiadateFormInput()">
+			<form action="update_user" method="post" id="userForm">
 			<input type="hidden" name="userId" value="${user.userId}">
 		</c:if>
 		<c:if test="${user == null}">
-			<form action="create_user" method="post" onsubmit="return valiadateFormInput()">
+			<form action="create_user" method="post" id="userForm">
 		</c:if>
 		
 		<table class="form">
@@ -47,8 +49,8 @@
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="Save">
-					<input type="button" value="Cancel" onclick="javascript:history.go(-1)">
+					<button type="submit">Save</button>&nbsp;&nbsp;&nbsp;
+					<button id="buttonCancel">Cancel</button>
 				</td>
 			</tr>
 		</table>
@@ -58,29 +60,33 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	function valiadateFormInput(){
-		var fieldEmail = document.getElementById("email");
-		var fieldFullname = document.getElementById("fullname");
-		var fieldPassword = document.getElementById("password");
+
+	$(document).ready(function() {
+		$("#userForm").validate({
+			rules: {
+				email: {
+					required: true,
+					email: true
+				},
+				
+				fullname: "required",
+				password: "required"
+			},
+			
+			messages: {
+				email: {
+					required: "Please enter email",
+					email: "Please enter an valid email address"
+				},
+				fullname: "Please enter fullname",
+				password: "Please enter password"
+			}
+		});
 		
-		if(fieldEmail.value.length == 0){
-			alert("Email is required!");
-			fieldEmail.focus();
-			return false;
-		}
-		
-		if(fieldFullname.value.length == 0){
-			alert("Full name is required!");
-			fieldFullname.focus();
-			return false;
-		}
-		
-		if(fieldPassword.value.length == 0){
-			alert("Password is required!");
-			fieldPassword.focus();
-			return false;
-		}
-		return true;
-	}
+		$("#buttonCancel").click(function(){
+			history.go(-1);
+		});
+	});
+	
 </script>
 </html>

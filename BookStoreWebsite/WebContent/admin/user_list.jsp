@@ -7,6 +7,8 @@
 <meta charset="ISO-8859-1">
 <title>Manage Users - TechBooks Store Administration</title>
 <link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -18,7 +20,7 @@
 	
 	<c:if test="${message != null}">
 	<div align="center">
-		<h4><i>${message}</i></h4>
+		<h4 class="message">${message}</h4>
 	</div>
 	</c:if>
 	
@@ -39,7 +41,7 @@
 					<td>${user.fullName}</td>
 					<td>
 						<a href="edit_user?id=${user.userId}">Edit</a> &nbsp;
-						<a href="javascript:confirmDelete(${user.userId})">Delete</a>
+						<a href="javascript:void(0);" class="deleteLink" id="${user.userId}">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -49,12 +51,17 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	
-	<script>
-		function confirmDelete(userId) {
-			if(confirm('Are you sure you want to delete user with ID ' + userId + ' ?')) {
-				window.location = 'delete_user?id=' + userId;
-			}
-		}
-	</script>
 </body>
+<script>
+	$(document).ready(function(){
+		$(".deleteLink").each(function(){
+			$(this).on("click", function() {
+				userId = $(this).attr("id");
+				if(confirm('Are you sure you want to delete user with ID ' + userId + ' ?')) {
+					window.location = 'delete_user?id=' + userId;
+				}
+			});
+		});
+	});
+</script>
 </html>
