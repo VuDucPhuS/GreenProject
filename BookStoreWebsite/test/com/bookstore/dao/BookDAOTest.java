@@ -1,6 +1,7 @@
 package com.bookstore.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -69,7 +71,7 @@ public class BookDAOTest extends BaseDAOTest {
 		Date publishDate =dateFormat.parse("05/28/2008");
 		existBook.setPublishDate(publishDate);
 		
-		String imagePath = "E:\\books\\Effective Java.jpg";
+		String imagePath = "E:\\Udemy_Video\\Java Servlet, JSP and Hibernate_Build eCommerce Website\\Section 19_Code BookDAO and Unit Tests\\64_Implement create method()\\books\\Effective Java.jpg";
 		byte[] imageBytes =  Files.readAllBytes(Paths.get(imagePath));
 		existBook.setImage(imageBytes);
 		
@@ -100,7 +102,36 @@ public class BookDAOTest extends BaseDAOTest {
 		Date publishDate =dateFormat.parse("05/28/2008");
 		newBook.setPublishDate(publishDate);
 		
-		String imagePath = "E:\\books\\Effective Java.jpg";
+		String imagePath = "E:\\Udemy_Video\\Java Servlet, JSP and Hibernate_Build eCommerce Website\\Section 19_Code BookDAO and Unit Tests\\64_Implement create method()\\books\\Effective Java.jpg";
+		byte[] imageBytes =  Files.readAllBytes(Paths.get(imagePath));
+		newBook.setImage(imageBytes);
+		
+		Book createdBook = bookDao.create(newBook);
+		
+		assertTrue(createdBook.getBookId() > 0);
+		
+	}
+	
+	@Test
+	public void testCreate2ndBook() throws ParseException, IOException {
+		Book newBook = new Book();
+		
+		Category category = new Category("Advanced Java");
+		category.setCategoryId(2);
+		
+		newBook.setCategory(category);
+		
+		newBook.setTitle("Java 8 in Action");
+		newBook.setAuthor("Alan Mycroft");
+		newBook.setDescription("Java 8 in Action is a clearly written guide to the new features of Java 8.");
+		newBook.setPrice(36.42f);
+		newBook.setIsbn("1617291994");
+		
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		Date publishDate =dateFormat.parse("08/28/2014");
+		newBook.setPublishDate(publishDate);
+		
+		String imagePath = "E:\\Udemy_Video\\Java Servlet, JSP and Hibernate_Build eCommerce Website\\Section 19_Code BookDAO and Unit Tests\\64_Implement create method()\\books\\Java 8 in Action.jpg";
 		byte[] imageBytes =  Files.readAllBytes(Paths.get(imagePath));
 		newBook.setImage(imageBytes);
 		
@@ -120,6 +151,39 @@ public class BookDAOTest extends BaseDAOTest {
 	public void testDeleteBookSuccess() {
 		Integer bookId = 9;
 		bookDao.delete(bookId);
+	}
+	
+	@Test
+	public void testListAll() {
+		List<Book> listBooks = bookDao.listAll();
+		
+		for(Book aBook : listBooks) {
+			System.out.println(aBook.getTitle() + " - " + aBook.getAuthor());
+		}
+		assertFalse(listBooks.isEmpty());
+	}
+	
+	@Test
+	public void testFindByTitleNotExist() {
+		String title = "Thinking in Java";
+		Book book = bookDao.findByTitle(title);
+		assertNull(book);
+	}
+	
+	@Test
+	public void testFindByTitleExist() {
+		String title = "Java 8 in Action";
+		Book book = bookDao.findByTitle(title);
+		
+		System.out.println(book.getAuthor());
+		System.out.println(book.getPrice());
+		assertNotNull(book);
+	}
+	
+	@Test
+	public void testCount() {
+		long totalBooks = bookDao.count();
+		assertEquals(2, totalBooks);
 	}
 
 	@AfterClass

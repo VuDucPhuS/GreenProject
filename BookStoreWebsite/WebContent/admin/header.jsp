@@ -19,7 +19,7 @@
 			</a>
 		</div>
 		<div>
-			<a href=books>
+			<a href="list_books">
 				<img src="../images/bookstacks.png"/><br/>Books
 			</a>
 		</div>

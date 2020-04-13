@@ -1,21 +1,27 @@
 package com.bookstore.entity;
 // Generated Mar 27, 2020, 7:17:22 PM by Hibernate Tools 5.2.12.Final
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -23,6 +29,11 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "book", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "title"))
+@NamedQueries({
+	@NamedQuery(name="Book.findAll", query = "SELECT b FROM Book b"),
+	@NamedQuery(name="Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
+	@NamedQuery(name="Book.countAll", query = "SELECT COUNT(*) FROM Book b")
+})
 public class Book implements java.io.Serializable {
 
 	private Integer bookId;
@@ -32,6 +43,7 @@ public class Book implements java.io.Serializable {
 	private String description;
 	private String isbn;
 	private byte[] image;
+	private String base64Image;
 	private float price;
 	private Date publishDate;
 	private Date lastUpdateTime;
@@ -181,6 +193,19 @@ public class Book implements java.io.Serializable {
 
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+	
+	//Get Image
+	//Transient - Getter and Setter method are not mapped to any fields in the base
+	@Transient
+	public String getBase64Image() {
+		this.base64Image = Base64.getEncoder().encodeToString(this.image);
+		return this.base64Image;
+	}
+	
+	@Transient
+	public void setBase64Image(String base64) {
+		this.base64Image = base64;
 	}
 
 }
