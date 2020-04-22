@@ -94,11 +94,16 @@ public class BookServices {
 	public void editBook() throws ServletException, IOException {
 		Integer bookId= Integer.parseInt(request.getParameter("id"));
 		Book book = bookDAO.get(bookId);
-		List<Category> listCategory = categoryDAO.listAll();
-		
-		request.setAttribute("book", book);
-		request.setAttribute("listCategory", listCategory);
 		String editPage = "book_form.jsp";
+		if(book != null) {
+			List<Category> listCategory = categoryDAO.listAll();
+			request.setAttribute("book", book);
+			request.setAttribute("listCategory", listCategory);
+		} else {
+			editPage = "message.jsp";
+			String message = "Could not find book with ID: " + bookId;
+			request.setAttribute("message", message);
+		}
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
 		requestDispatcher.forward(request, response);
 		
@@ -174,5 +179,36 @@ public class BookServices {
 		
 		String message = "The book has been updated successfully";
 		listBooks(message);
+	}
+
+	public void deleteBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		
+		if(book == null) {
+			String message = "Could not find book with ID " + bookId + ", or it might have been deleted";
+			request.setAttribute("message", message);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+			requestDispatcher.forward(request, response);
+		} else {
+			String message = "The book has been deleted successfully";
+			bookDAO.delete(bookId);
+			listBooks(message);
+		}
+	}
+
+	public void listBooksByCategory() throws ServletException, IOException {
+		int categoryId = Integer.parseInt(request.getParameter("id"));
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+		Category category = categoryDAO.get(categoryId);
+		List<Category> listCategory = categoryDAO.listAll();
+		
+		request.setAttribute("listBooks", listBooks);
+		request.setAttribute("category", category);
+		request.setAttribute("listCategory", listCategory);
+		
+		String listPage = "frontend/book_list_by_category.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
+		requestDispatcher.forward(request, response);
 	}
 }
