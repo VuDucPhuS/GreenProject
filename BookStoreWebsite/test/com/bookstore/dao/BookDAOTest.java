@@ -26,14 +26,13 @@ import org.junit.Test;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
-public class BookDAOTest extends BaseDAOTest {
+public class BookDAOTest{
 
 	private static BookDAO bookDao;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-		bookDao = new BookDAO(entityManager);
+		bookDao = new BookDAO();
 	}
 	
 	@Test
@@ -204,10 +203,43 @@ public class BookDAOTest extends BaseDAOTest {
 		}
 		assertEquals(4, listNewBooks.size());
 	}
-
+	
+	@Test
+	public void testSearchBookInTitle() {
+		String keyword = "Java";
+		List<Book> result = bookDao.search(keyword);
+		
+		for(Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		assertEquals(5, result.size());
+	}
+	
+	@Test
+	public void testSearchBookInAuthor() {
+		String keyword = "Kathy";
+		List<Book> result = bookDao.search(keyword);
+		
+		for(Book aBook : result) {
+			System.out.println(aBook.getAuthor());
+		}
+		assertEquals(2, result.size());
+	}
+	
+	@Test
+	public void testSearchBookInDescription() {
+		String keyword = "Fourth Edition";
+		List<Book> result = bookDao.search(keyword);
+		
+		for(Book aBook : result) {
+			System.out.println(aBook.getDescription());
+		}
+		assertEquals(1, result.size());
+	}
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownAfterClass();
+		bookDao.close();
 	}
 
 }

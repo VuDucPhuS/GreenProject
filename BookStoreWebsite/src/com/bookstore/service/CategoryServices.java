@@ -14,19 +14,15 @@ import com.bookstore.dao.CategoryDAO;
 import com.bookstore.entity.Category;
 
 public class CategoryServices {
-	
-	private EntityManager entityManager;
 	private CategoryDAO categoryDAO;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	
-	public CategoryServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
-		super();
+	public CategoryServices(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
 		
-		this.entityManager = entityManager;
-		categoryDAO = new CategoryDAO(entityManager);
+		categoryDAO = new CategoryDAO();
 	}
 	
 	public void listCategory()
@@ -147,6 +143,7 @@ public class CategoryServices {
 		}
 		listCategory(message);
 		*/
+		
 		
 	}
 	
