@@ -53,6 +53,7 @@ th {
 table.form {
 	border: 0;
 	padding: 4px;
+	width: 80%;
 }
 
 button {
@@ -86,4 +87,86 @@ input {
 	font-style: italic;
 	margin: 5px;
 }
+
+div.center {
+	text-align: center;
+}
+
+div .book {
+	width : 80%;
+	border: 0;
+	display: inline-block;
+}
+
+table.book {
+	width : 80%;
+	border: 0;
+	margin: 0 auto;
+}
+
+/*book_list_by_category.jsp*/
+/*index.jsp*/
+div.book-group {
+	width: 70%; 
+	margin: 0 auto;
+}
+
+div .book-list-category {
+	display: inline-block;  
+	margin: 20px;
+	float: left;
+}
+
+div .book-list-category-index {
+	display: inline-block; margin: 20px;
+}
+
+div .next-row {
+	clear:both;
+}
+
+img.book-small {
+	width:128px;
+	height:164px;
+}
+img.book-large{
+	width:240px;
+	height:300px;
+}
+
+#book-title {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+#author {
+	font-size: large;
+	font-style: italic;
+}
+
+#description {
+	text-align: justify;
+	vertical-align: top;
+}
+
+#search-image {
+	display: inline-block; 
+	margin: 20px; 
+	width: 10%
+}
+
+#search-description {
+	display: inline-block; 
+	margin: 20px; 
+	vertical-align: top; 
+	width: 50%; 
+	text-align: left;
+}
+
+#search-price {
+	display: inline-block; 
+	margin: 20px; 
+	vertical-align: top;
+}
+
 
