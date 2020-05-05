@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Manage Category - TechBooks Store Administration</title>
+<title>Manage Customers - TechBooks Store Administration</title>
 <link rel="stylesheet" href="../css/style.css">
 <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
@@ -14,8 +15,8 @@
 	<jsp:include page="header.jsp"></jsp:include>
 
 	<div align="center">
-		<h2 class="pageheading">Category Management</h2>
-		<h3><a href="category_form.jsp">Create New Category</a></h3>
+		<h2 class="pageheading">Customers Management</h2>
+		<h3><a href="new_customer">Create New Customer</a></h3>
 	</div>
 	
 	<c:if test="${message != null}">
@@ -29,17 +30,25 @@
 			<tr>
 				<th>Index</th>
 				<th>ID</th>
-				<th>Name</th>
-				<th>Actions</th>
+				<th>E-mail</th>
+				<th>Full Name</th>
+				<th>City</th>
+				<th>Country</th>
+				<th>Registered Date</th>
+				<th>Action</th>
 			</tr>
-			<c:forEach var="cat" items="${listCategory}" varStatus="status">
+			<c:forEach var="customer" items="${listCustomer}" varStatus="status">
 				<tr>
 					<td>${status.index + 1}</td>
-					<td>${cat.categoryId}</td>
-					<td>${cat.name}</td>
+					<td>${customer.customerId}</td>
+					<td>${customer.email}</td>
+					<td>${customer.fullname}</td>
+					<td>${customer.city}</td>
+					<td>${customer.country}</td>
+					<td>${customer.registerDate}</td>
 					<td>
-						<a href="edit_category?id=${cat.categoryId}">Edit</a> &nbsp;
-						<a href="javascript:void(0);" class="deleteLink" id="${cat.categoryId}">Delete</a>
+						<a href="edit_customer?id=${customer.customerId}">Edit</a> &nbsp;
+						<a href="javascript:void(0);" class="deleteLink" id="${customer.customerId}">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -49,14 +58,13 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	
-
 	<script>
 		$(document).ready(function(){
 			$(".deleteLink").each(function(){
 				$(this).on("click", function() {
-					categoryId = $(this).attr("id");
-					if(confirm('Are you sure you want to delete the category with ID ' + categoryId + ' ?')) {
-						window.location = 'delete_category?id=' + categoryId;
+					bookId = $(this).attr("id");
+					if(confirm('Are you sure you want to delete book with ID ' + customerId + ' ?')) {
+						window.location = 'delete_customer?id=' + customerId;
 					}
 				});
 			});

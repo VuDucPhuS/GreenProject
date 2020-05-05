@@ -237,6 +237,14 @@ public class BookDAOTest{
 		assertEquals(1, result.size());
 	}
 	
+	@Test
+	public void testCountByCategory() {
+		int categoryId = 2;
+		long numOfBooks = bookDao.countByCategory(categoryId);
+		
+		assertTrue(numOfBooks == 1);
+	}
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		bookDao.close();

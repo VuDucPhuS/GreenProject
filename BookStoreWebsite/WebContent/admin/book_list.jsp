@@ -62,17 +62,18 @@
 
 	<jsp:include page="footer.jsp"></jsp:include>
 	
-</body>
-<script>
-	$(document).ready(function(){
-		$(".deleteLink").each(function(){
-			$(this).on("click", function() {
-				bookId = $(this).attr("id");
-				if(confirm('Are you sure you want to delete book with ID ' + bookId + ' ?')) {
-					window.location = 'delete_book?id=' + bookId;
-				}
+
+	<script>
+		$(document).ready(function(){
+			$(".deleteLink").each(function(){
+				$(this).on("click", function() {
+					bookId = $(this).attr("id");
+					if(confirm('Are you sure you want to delete book with ID ' + bookId + ' ?')) {
+						window.location = 'delete_book?id=' + bookId;
+					}
+				});
 			});
 		});
-	});
-</script>
+	</script>
+</body>
 </html>

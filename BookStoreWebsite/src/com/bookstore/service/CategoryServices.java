@@ -113,38 +113,28 @@ public class CategoryServices {
 	public void deleteCategory() throws ServletException, IOException {
 		
 		int categoryId = Integer.parseInt(request.getParameter("id"));
-		String message;
-		
 		Category category = categoryDAO.get(categoryId);
-		
-		if (category == null) {
-			message = "Could not find category with ID: " + categoryId
-					+ ", or it might have been deleted";
-			request.setAttribute("message", message);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
-			requestDispatcher.forward(request, response);
-			return;
-		} else {
-			categoryDAO.delete(categoryId);		
-			message = "The category with ID " + categoryId + " has been removed successfully.";
-			listCategory(message);
-		}
-		
-		/*
 		BookDAO bookDAO = new BookDAO();
 		long numberOfBooks = bookDAO.countByCategory(categoryId);
+		String message;
+		
 		if(numberOfBooks > 0) {
-			message = "Could not find category with ID: " + categoryId
-					+ ", because it currently contains some books.";
-			message = String.format(message, numberOfBooks);
+			message = "Could not delete the category (ID: %d) because it currently contains %d books.";
+			message = String.format(message, categoryId, numberOfBooks);
 		} else {
-			categoryDAO.delete(categoryId);		
-			message = "The category with ID " + categoryId + " has been removed successfully.";
+			if (category == null) {
+				message = "Could not find category with ID: " + categoryId
+						+ ", or it might have been deleted";
+				request.setAttribute("message", message);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+				requestDispatcher.forward(request, response);
+				return;
+			} else {
+				categoryDAO.delete(categoryId);		
+				message = "The category with ID " + categoryId + " has been removed successfully.";
+			}
 		}
 		listCategory(message);
-		*/
-		
-		
 	}
 	
 }
