@@ -10,18 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.service.CustomerServices;
 
-@WebServlet("/admin/list_customer")
-public class ListCustomerServlet extends HttpServlet {
+@WebServlet("/admin/delete_customer")
+public class DeleteCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListCustomerServlet() {
+    public DeleteCustomerServlet() {
         super();
+        
     }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
 		CustomerServices customerServices = new CustomerServices(request, response);
-		customerServices.listCustomers();
+		customerServices.deleteCustomer();
 	}
 
 }

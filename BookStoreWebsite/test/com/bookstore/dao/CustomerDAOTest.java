@@ -82,6 +82,14 @@ public class CustomerDAOTest {
 		assertEquals(2, totalCustomer);
 	}
 	
+	@Test
+	public void testFindByEmail() {
+		String email = "tom@gmail.com";
+		Customer customer = customerDao.findByEmail(email);
+		
+		assertNotNull(customer);
+	}
+	
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		customerDao.close();

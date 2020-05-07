@@ -29,11 +29,11 @@
 	
 	<div align="center">
 		<c:if test="${customer != null}">
-			<form action="update_customer" method="post" id="customerForm" enctype="multipart/form-data">
+			<form action="update_customer" method="post" id="customerForm">
 			<input type="hidden" name="customerId" value="${customer.customerId}">
 		</c:if>
-		<c:if test="${book == null}">
-			<form action="create_customer" method="post" id="customerForm" enctype="multipart/form-data">
+		<c:if test="${customer == null}">
+			<form action="create_customer" method="post" id="customerForm">
 		</c:if>
 		
 		<table class="form">
@@ -43,15 +43,15 @@
 			</tr>
 			<tr>
 				<td align="right">Full Name:</td>
-				<td align="left"><input type="text" id="fullName" name="fullName" size="45" value="${customer.fullName}"></td>
+				<td align="left"><input type="text" id="fullName" name="fullName" size="45" value="${customer.fullname}"></td>
 			</tr>
 			<tr>
 				<td align="right">Password:</td>
-				<td align="left"><input type="text" id="password" name="password" size="45" value="${customer.password}"></td>
+				<td align="left"><input type="password" id="password" name="password" size="45" value="${customer.password}"></td>
 			</tr>
 			<tr>
 				<td align="right">Confirm Password:</td>
-				<td align="left"><input type="text" id="confirmPassword" name="confirmPassword" size="45" value="${customer.password}"></td>
+				<td align="left"><input type="password" id="confirmPassword" name="confirmPassword" size="45" value="${customer.password}"></td>
 			</tr>
 			<tr>
 				<td align="right">Phone Number:</td>
@@ -67,7 +67,7 @@
 			</tr>
 			<tr>
 				<td align="right">Zip Code:</td>
-				<td align="left"><input type="text" id="zipcode" name="zipcode" size="45" value="${customer.zipCode}"></td>
+				<td align="left"><input type="text" id="zipCode" name="zipCode" size="45" value="${customer.zipcode}"></td>
 			</tr>
 			<tr>
 				<td align="right">Country:</td>
@@ -94,10 +94,16 @@
 		
 		$("#customerForm").validate({
 			rules: {
-				email: "required",
+				email: {
+					required: true,
+					email:true
+				},
 				fullName: "required",
 				password: "required",
-				confirmPassword: "required",
+				confirmPassword: {
+					required: true,
+					equalTo: "#password"
+				},
 				phone: "required",
 				address: "required",
 				city: "required",
@@ -106,14 +112,21 @@
 			},
 			
 			messages: {
-				category: "Please select a category for the book",
-				title: "Please enter title of the book",
-				author: "Please enter author of the book",
-				isbn: "Please enter isbn of the book",
-				publishDate: "Please enter publish date of the book",
-				bookImage: "Please choose an image of the book",
-				price: "Please enter price of the book",
-				description: "Please enter description of the book"
+				email: {
+					required: "Please enter e-mail address",
+					email: "Please enter a valid e-mail address"
+				},
+				fullName: "Please enter full name",
+				password: "Please enter password",
+				confirmPassword: {
+					required: "Please confirm password",
+					equalTo: "Confirm password does not match password"
+				},
+				phone: "Please enter phone number",
+				address: "Please enter address",
+				city: "Please enter city",
+				zipCode: "Please enter zipcode",
+				country: "Please enter country",
 			}
 		});
 		
