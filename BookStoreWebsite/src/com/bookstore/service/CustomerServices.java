@@ -78,7 +78,7 @@ public class CustomerServices {
 		
 		customer.setFullname(fullName);
 		
-		if (password != null & !password.isEmpty()) {
+		if (password != null && !password.isEmpty()) {
 			String encryptedPassword = HashGenerator.generateMD5(password);
 			customer.setPassword(encryptedPassword);				
 		}
@@ -208,6 +208,22 @@ public class CustomerServices {
 		String profilePage = "frontend/customer_profile.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
 		dispatcher.forward(request, response);
+	}
+
+	public void showCustomerProfileEditForm() throws ServletException, IOException {
+		String editPage = "frontend/edit_profile.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(editPage);
+		dispatcher.forward(request, response);
+		
+	}
+
+	public void updateCustomerProfile() throws ServletException, IOException {
+		
+		Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+		updateCustomerFieldFromForm(customer);
+		customerDAO.update(customer);
+		showCustomerProfile();
+		
 	}
 	
 }

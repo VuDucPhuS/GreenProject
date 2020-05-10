@@ -12,8 +12,43 @@
 	
 	<div align="center">
 		<br/>
-		<h2>Customer Profile Page</h2>
+		<h2>Welcome, ${loggedCustomer.fullname}</h2>
 		<br/>
+		
+		<table class="normal">
+			<tr>
+				<td><b>E-mail address:</b></td>
+				<td>${loggedCustomer.email}</td>
+			</tr>
+			<tr>
+				<td><b>Full Name:</b></td>
+				<td>${loggedCustomer.fullname}</td>
+			</tr>
+			<tr>
+				<td><b>Phone Number:</b></td>
+				<td>${loggedCustomer.phone}</td>
+			</tr>
+			<tr>
+				<td><b>Address:</b></td>
+				<td>${loggedCustomer.address}</td>
+			</tr>
+			<tr>
+				<td><b>City:</b></td>
+				<td>${loggedCustomer.city}</td>
+			</tr>
+			<tr>
+				<td><b>Zipcode:</b></td>
+				<td>${loggedCustomer.zipcode}</td>
+			</tr>
+			<tr>
+				<td><b>Country:</b></td>
+				<td>${loggedCustomer.country}</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td colspan="2" align="center"><a href="edit_profile">Edit My Profile</a></td>
+			</tr>
+		</table>
 	</div>
 	
 	<jsp:include page="footer.jsp"></jsp:include>

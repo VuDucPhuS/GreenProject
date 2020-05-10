@@ -105,6 +105,10 @@ table.book {
 	margin: 0 auto;
 }
 
+table.normal {
+	border: 0;
+}
+
 /*book_list_by_category.jsp*/
 /*index.jsp*/
 div.book-group {
