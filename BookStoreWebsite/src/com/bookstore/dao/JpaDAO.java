@@ -123,7 +123,7 @@ public class JpaDAO<E> {
 		
 	}
 	
-	public long countWithNameQuery(String queryName) {
+	public long countWithNamedQuery(String queryName) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Query query = entityManager.createNamedQuery(queryName);
 		
@@ -133,7 +133,7 @@ public class JpaDAO<E> {
 		return result;
 	}
 	
-	public long countWithNameQuery(String queryName, String paramName, Object paramValue) {
+	public long countWithNamedQuery(String queryName, String paramName, Object paramValue) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		Query query = entityManager.createNamedQuery(queryName);
 		query.setParameter(paramName, paramValue);

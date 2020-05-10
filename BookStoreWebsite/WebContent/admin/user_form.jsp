@@ -36,23 +36,23 @@
 		<table class="form">
 			<tr>
 				<td align="right">Email:</td>
-				<td align="left"><input type="text" id="email" name="email" size="20" value="${user.email}"></td>
+				<td align="left"><input type="text" id="email" name="email" size="20" value="${user.email}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Full name:</td>
-				<td align="left"><input type="text" id="fullname" name="fullname" size="20" value="${user.fullName}"></td>
+				<td align="left"><input type="text" id="fullname" name="fullname" size="20" value="${user.fullName}" /></td>
 			</tr>
 			<tr>
 				<td align="right">Password:</td>
-				<td align="left"><input type="password" id="password" name="password" size="20" value="${user.password}"></td>
-			</tr>
+				<td align="left"><input type="password" id="password" name="password" size="20" value="${user.password}" /></td>
+			</tr>	
 			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td colspan="2" align="center">
 					<button type="submit">Save</button>&nbsp;&nbsp;&nbsp;
 					<button id="buttonCancel">Cancel</button>
 				</td>
-			</tr>
+			</tr>				
 		</table>
 		</form>
 	</div>
@@ -68,9 +68,12 @@
 					required: true,
 					email: true
 				},
-				
+		
 				fullname: "required",
+				
+				<c:if test="${user == null}">
 				password: "required"
+				</c:if>
 			},
 			
 			messages: {
@@ -78,15 +81,18 @@
 					required: "Please enter email",
 					email: "Please enter an valid email address"
 				},
-				fullname: "Please enter fullname",
+				
+				fullname: "Please enter full name",
+				
+				<c:if test="${user == null}">
 				password: "Please enter password"
+				</c:if>				
 			}
 		});
 		
-		$("#buttonCancel").click(function(){
+		$("#buttonCancel").click(function() {
 			history.go(-1);
 		});
 	});
-	
 </script>
 </html>

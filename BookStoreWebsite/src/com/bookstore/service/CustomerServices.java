@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.dao.CustomerDAO;
+import com.bookstore.dao.HashGenerator;
 import com.bookstore.entity.Customer;
 
 public class CustomerServices {
@@ -71,9 +72,17 @@ public class CustomerServices {
 		String zipCode = request.getParameter("zipCode");
 		String country = request.getParameter("country");
 		
-		customer.setEmail(email);
+		if (email != null && !email.equals("")) {
+			customer.setEmail(email);
+		}
+		
 		customer.setFullname(fullName);
-		customer.setPassword(password);
+		
+		if (password != null & !password.isEmpty()) {
+			String encryptedPassword = HashGenerator.generateMD5(password);
+			customer.setPassword(encryptedPassword);				
+		}
+		
 		customer.setPhone(phone);
 		customer.setAddress(address);
 		customer.setCity(city);
@@ -116,7 +125,12 @@ public class CustomerServices {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(destPage);
 			requestDispatcher.forward(request, response);
 		} else {
+			// set password as null to make the password is left blank by default
+			// if left blank, the customer's password won't be updated
+			// this is to work with the encrypted password feature
+			customer.setPassword(null);
 			request.setAttribute("customer", customer);
+			
 			String editPage = "customer_form.jsp";
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
 			requestDispatcher.forward(request, response);
@@ -162,7 +176,38 @@ public class CustomerServices {
 			requestDispatcher.forward(request, response);
 		}
 	}
+
+	public void showLogin() throws ServletException, IOException {
+		
+		String loginPage = "frontend/login.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
+		dispatcher.forward(request, response);
+		
+	}
+
+	public void doLogin() throws ServletException, IOException {
+		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		Customer customer = customerDAO.checkLogin(email, password);
+		if(customer == null) {
+			String message = "Login failed. Please check your email and password";
+			request.setAttribute("message", message);
+			showLogin();
+		} else {
+			request.getSession().setAttribute("loggedCustomer", customer);
+			
+			String profilePage = "frontend/customer_profile.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
+			dispatcher.forward(request, response);
+		}
+	}
 	
-	
+	public void showCustomerProfile() throws ServletException, IOException {
+		String profilePage = "frontend/customer_profile.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(profilePage);
+		dispatcher.forward(request, response);
+	}
 	
 }

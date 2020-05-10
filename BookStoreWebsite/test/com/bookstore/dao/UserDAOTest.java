@@ -35,7 +35,7 @@ public class UserDAOTest{
 		Users user1 = new Users();
 		user1.setEmail("john@gmail.com");
 		user1.setFullName("John Smith");
-		user1.setPassword("johny deep");
+		user1.setPassword("john");
 		
 		user1 = userDAO.create(user1);
 		
@@ -135,7 +135,7 @@ public class UserDAOTest{
 	}
 	
 	@Test
-	public void testCheckLoginSuccess() {
+	public void testCheckLoginSuccess(){
 		String email = "admin.book@gmail.com";
 		String password = "admin";
 		boolean loginResult = userDAO.checkLogin(email, password);
@@ -143,9 +143,9 @@ public class UserDAOTest{
 	}
 	
 	@Test
-	public void testCheckLoginFailed() {
+	public void testCheckLoginFailed(){
 		String email = "admin123.book@gmail.com";
-		String password = "admin123";
+		String password = "admin";
 		boolean loginResult = userDAO.checkLogin(email, password);
 		assertFalse(loginResult);
 	}

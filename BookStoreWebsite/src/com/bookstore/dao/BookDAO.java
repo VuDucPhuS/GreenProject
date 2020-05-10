@@ -52,7 +52,7 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 
 	@Override
 	public long count() {
-		return super.countWithNameQuery("Book.countAll");
+		return super.countWithNamedQuery("Book.countAll");
 	}
 	
 	public List<Book> listByCategory(int categoryId){
@@ -68,7 +68,7 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 	}
 	
 	public long countByCategory(int categoryId) {
-		return super.countWithNameQuery("Book.countByCategory", "catId", categoryId);
+		return super.countWithNamedQuery("Book.countByCategory", "catId", categoryId);
 	}
 
 }

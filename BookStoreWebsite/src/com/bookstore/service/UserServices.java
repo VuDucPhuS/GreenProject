@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.dao.HashGenerationException;
+import com.bookstore.dao.HashGenerator;
 import com.bookstore.dao.UserDAO;
 import com.bookstore.entity.Users;
 
@@ -84,7 +86,13 @@ public class UserServices {
 			requestDispatcher.forward(request, response);
 		} else {
 			String editPage = "user_form.jsp";
+			
+			// set password as null to make the password is left blank by default
+			// if left blank, the user's password won't be updated
+			// this is to work with the encrypted password feature
+			user.setPassword(null);
 			request.setAttribute("user", user);
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(editPage);
 			requestDispatcher.forward(request, response);
 		}
@@ -110,9 +118,16 @@ public class UserServices {
 			requestDispatcher.forward(request, response);
 		} else {
 			//update user
-			Users user = new Users(userId, email, fullName, password);
-			userDAO.update(user);
+			userById.setEmail(email);
+			userById.setFullName(fullName);
 			
+			if (password != null & !password.isEmpty()) {
+				String encryptedPassword = HashGenerator.generateMD5(password);
+				userById.setPassword(encryptedPassword);				
+			}
+			
+			userDAO.update(userById);
+
 			String message = "User has been updated successfully";
 			listUser(message);
 		}
@@ -149,19 +164,18 @@ public class UserServices {
 		
 		boolean loginResult = userDAO.checkLogin(email, password);
 		
-		if(loginResult) {
-			System.out.println("User is authenticated");
-			
+		if (loginResult) {
 			request.getSession().setAttribute("useremail", email);
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/");
-			requestDispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/");
+			dispatcher.forward(request, response);
+			
 		} else {
 			String message = "Login failed!";
 			request.setAttribute("message", message);
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
-			requestDispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);			
 		}
 	}
 	 

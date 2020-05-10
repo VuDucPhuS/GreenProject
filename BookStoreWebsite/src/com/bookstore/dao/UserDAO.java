@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
 import com.bookstore.entity.Users;
 
 public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
@@ -14,9 +12,9 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 	}
 
 	public Users create(Users user) {
-		
+		String encryptedPassword = HashGenerator.generateMD5(user.getPassword());
+		user.setPassword(encryptedPassword);		
 		return super.create(user);
-		
 	}
 	
 	@Override
@@ -44,39 +42,37 @@ public class UserDAO extends JpaDAO<Users> implements GenericDAO<Users> {
 		return null;
 	}
 	
-	public boolean checkLogin(String email, String password) {
+	public boolean checkLogin(String email, String password){
 		
-		Map<String, Object> parameters =  new HashMap<>();
+		Map<String, Object> parameters = new HashMap<>();
+		String encryptedPassword = HashGenerator.generateMD5(password);
 		parameters.put("email", email);
-		parameters.put("password", password);
+		parameters.put("password", encryptedPassword);
 		
 		List<Users> listUsers = super.findWithNamedQuery("Users.checkLogin", parameters);
 		
-		if(listUsers.size() == 1) {
+		if (listUsers.size() == 1) {
 			return true;
 		}
+		
 		return false;
 		
 	}
 
 	@Override
 	public void delete(Object userId) {
-		
 		super.delete(Users.class, userId);
-
 	}
 
 	@Override
 	public List<Users> listAll() {
-		
 		return super.findWithNamedQuery("Users.findAll");
-		
 	}
 
 	@Override
 	public long count() {
 		
-		return super.countWithNameQuery("Users.countAll");
+		return super.countWithNamedQuery("Users.countAll");
 		
 	}
 	
