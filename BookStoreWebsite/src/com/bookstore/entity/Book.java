@@ -4,9 +4,11 @@ package com.bookstore.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -185,9 +187,20 @@ public class Book implements java.io.Serializable {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
 	public Set<Review> getReviews() {
-		return this.reviews;
+		
+		//Compare the time of the review
+		TreeSet<Review> sortedReviews = new TreeSet<>(new Comparator<Review>() {
+
+			@Override
+			public int compare(Review review1, Review review2) {
+				return review1.getReviewTime().compareTo(review2.getReviewTime());
+			}
+			
+		});
+		sortedReviews.addAll(reviews);
+		return sortedReviews;
 	}
 
 	public void setReviews(Set<Review> reviews) {
@@ -205,10 +218,62 @@ public class Book implements java.io.Serializable {
 	
 	//Get Image
 	//Transient - Getter and Setter method are not mapped to any fields in the base
+	//Hibernate ignore the map Transient
 	@Transient
 	public String getBase64Image() {
 		this.base64Image = Base64.getEncoder().encodeToString(this.image);
 		return this.base64Image;
+	}
+	
+	
+	//Calculate the Rating of a Books
+	@Transient
+	public float getAverageRating() {
+		float averageRating = 0.0f;
+		float sum = 0.0f;
+		
+		if(reviews.isEmpty()) {
+			return 0.0f;
+		}
+		
+		for(Review review : reviews) {
+			sum += review.getRating();
+		}
+		
+		averageRating = sum / reviews.size();
+		
+		return averageRating;
+	}
+	
+	@Transient
+	public String getRatingString(float averageRating) {
+		String result = "";
+		
+		int numberOfStarsOn = (int) averageRating;
+		
+		for(int i = 1; i <= numberOfStarsOn; i++) {
+			result += "on,";
+		}
+		
+		int next = numberOfStarsOn + 1;
+		
+		if(averageRating > numberOfStarsOn) {
+			result += "half,";
+			next++;
+		}
+		
+		for(int j = next; j <= 5; j++) {
+			result += "off,";
+		}
+		
+		return result.substring(0, result.length() - 1);
+	}
+	
+	@Transient
+	public String getRatingStars() {
+		float averageRating = getAverageRating();
+		
+		return getRatingString(averageRating);
 	}
 	
 	@Transient
@@ -240,7 +305,5 @@ public class Book implements java.io.Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }

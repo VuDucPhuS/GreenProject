@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -34,16 +33,16 @@ public class ReviewDAOTest {
 	public void testCreateReview() {
 		Review review = new Review();
 		Book book = new Book();
-		book.setBookId(16);
+		book.setBookId(19);
 		
 		Customer customer = new Customer();
-		customer.setCustomerId(7);
+		customer.setCustomerId(11);
 		
 		review.setBook(book);
 		review.setCustomer(customer);
 		
 		review.setHeadline("This is a very good book!");
-		review.setRating(4);
+		review.setRating(2);
 		review.setComment("I have just read this book. Very good.");
 		
 		Review savedReview = reviewDao.create(review);
