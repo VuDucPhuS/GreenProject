@@ -34,7 +34,7 @@ public class ReviewDAOTest {
 	public void testCreateReview() {
 		Review review = new Review();
 		Book book = new Book();
-		book.setBookId(15);
+		book.setBookId(16);
 		
 		Customer customer = new Customer();
 		customer.setCustomerId(7);
@@ -91,6 +91,14 @@ public class ReviewDAOTest {
 		}
 		
 		assertTrue(listReview.size() > 0);
+	}
+	
+	@Test
+	public void testCountByBook() {
+		int bookId = 15;
+		long numOfReviews = reviewDao.countByBook(bookId);
+		
+		assertTrue(numOfReviews == 1);
 	}
 
 	@Test

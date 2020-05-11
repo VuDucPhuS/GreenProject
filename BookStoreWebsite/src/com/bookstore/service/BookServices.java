@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,7 @@ import javax.servlet.http.Part;
 
 import com.bookstore.dao.BookDAO;
 import com.bookstore.dao.CategoryDAO;
+import com.bookstore.dao.ReviewDAO;
 import com.bookstore.entity.Book;
 import com.bookstore.entity.Category;
 
@@ -182,15 +182,27 @@ public class BookServices {
 		Integer bookId = Integer.parseInt(request.getParameter("id"));
 		Book book = bookDAO.get(bookId);
 		
-		if(book == null) {
-			String message = "Could not find book with ID " + bookId + ", or it might have been deleted";
+		if(book != null) {
+			ReviewDAO reviewDAO = new ReviewDAO();
+			long reviewCount = reviewDAO.countByBook(bookId);
+			
+			if (reviewCount == 0) {
+				String message = "The book has been deleted successfully";
+				bookDAO.delete(bookId);
+				listBooks(message);
+			} else {
+				String message = "Could not delete the book with ID " + bookId
+						+ " because it has reviews";
+				request.setAttribute("message", message);
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
+				requestDispatcher.forward(request, response);
+			}
+		} else {
+			String message = "Could not find the book with ID " + bookId
+					+ " or it has been deleted by another admin";
 			request.setAttribute("message", message);
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("message.jsp");
 			requestDispatcher.forward(request, response);
-		} else {
-			String message = "The book has been deleted successfully";
-			bookDAO.delete(bookId);
-			listBooks(message);
 		}
 	}
 
