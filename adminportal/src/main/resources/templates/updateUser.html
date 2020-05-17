@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/book/updateUser}" method="post">
+				<fieldset>
+					<legend class="center-block">
+						Update User Information<span style="font-size: small"></span>
+					</legend>
+
+					<input hidden="hidden" name="id" th:value="${user.id}" />
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="newUsername">Username: </label>&nbsp;<span
+							style="color: red;" th:if="${usernameExists}">Username
+							already exists. Choose a different one.</span> 
+						<div class="col-md-8">
+							<input
+								required="required" type="text" class="form-control"
+								id="newUsername" name="username" th:value="${user.username}" />
+							<p style="color: #828282">Enter your username here.</p>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="email">Email Address: </label><span
+							style="color: red;" th:if="${emailExists}">Email already
+							exists. Choose a different one.</span> 
+						<div class="col-md-8">
+							<input required="required"
+								type="text" class="form-control" id="email" name="email" th:value="${user.email}" />
+							<p style="color: #828282">A valid email address. All emails
+								from the system will be sent to this address. The email address
+								is not made public and will only be used if you wish to receive a
+								new password or wish to receive certain notification.</p>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="firstName">First Name:</label>
+
+						<div class="col-md-8">
+							<input type="text" name="firstName" class="form-control" id="firstName"
+								th:value="${user.firstName}" required="required" placeholder="First Name" />
+							<span class="help-block">First Name of User</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="lastName">Last Name:</label>
+
+						<div class="col-md-8">
+							<input type="text" name="lastName" class="form-control" id="lastName"
+								th:value="${user.lastName}" required="required" placeholder="Last Name" />
+							<span class="help-block">Last Name of User</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="txtNewPassword">New Password:</label>&nbsp;<span
+							id="checkPasswordMatch" style="color: red;"></span> 
+							<div class="col-md-8">
+								<input
+								type="password" class="form-control" id="txtNewPassword"
+								name="newPassword" />
+								<span class="help-block">Password of User</span>
+							</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="txtConfirmPassword">Confirm Password:</label>
+						<div class="col-md-8">
+							<input type="password" class="form-control" id="txtConfirmPassword" />
+							<span class="help-block">Confirm Password Again!</span>
+						</div>
+					</div>
+					<p style="color: #828282">To change the current user password,
+						enter the new password in both fields.</p>
+
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update</button>
+							<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+							
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>
