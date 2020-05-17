@@ -133,7 +133,11 @@
 													th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span>
 											</div>
 											<div class="col-xs-12">
-												<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+												<div class="product-rating">
+													<i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i>
+													<i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i>
+													<i class="fa fa-star-o"></i>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -188,6 +192,15 @@
 											<a th:href="@{/bookDetail?id=}+${book.id}"><img 
 												class="img-responsive shelf-book"
 												th:src="#{adminPath}+@{/image/book/}+${book.id}+'.png'" /></a>
+											<div class="col-xs-12">
+												<div class="product-rating">
+													<i class="fa fa-star gold"></i> 
+													<i class="fa fa-star gold"></i>
+													<i class="fa fa-star gold"></i> 
+													<i class="fa fa-star gold"></i>
+													<i class="fa fa-star-o"></i>
+												</div>
+											</div>
 										</div>
 										<div class="col-xs-9" >
 											<a th:href="@{/bookDetail?id=}+${book.id}"><h4
@@ -238,22 +251,22 @@
 						<div class="carousel-caption">
 							<div class="row">
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+1+'.png'" />
 								</div>
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+2+'.png'" />
 								</div>
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+3+'.png'" />
 								</div>
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+4+'.png'" />
 								</div>
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+5+'.png'" />
 								</div>
 								<div class="col-xs-2">
-									<img class="img-responsive" src="/image/book1.png" />
+									<img class="img-responsive" th:src="#{adminPath}+@{/image/book/}+6+'.png'" />
 								</div>
 							</div>
 						</div>
