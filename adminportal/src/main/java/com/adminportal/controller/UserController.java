@@ -107,7 +107,7 @@ public class UserController {
 		if (userService.findByEmail(user.getEmail())!=null) {
 			if(userService.findByEmail(user.getEmail()).getId() != currentUser.getId()) {
 				model.addAttribute("emailExists", true);
-				return "myProfile";
+				return "updateUser";
 			}
 		}
 		
@@ -115,7 +115,7 @@ public class UserController {
 		if (userService.findByUsername(user.getUsername())!=null) {
 			if(userService.findByUsername(user.getUsername()).getId() != currentUser.getId()) {
 				model.addAttribute("usernameExists", true);
-				return "myProfile";
+				return "updateUser";
 			}
 		}
 		
@@ -129,6 +129,7 @@ public class UserController {
 		currentUser.setPassword(passwordEncoder.encode(newPassword));
 		
 		userService.save(currentUser);
+		model.addAttribute("updateSuccess", true);
 		
 		return "updateUser";
 	}
